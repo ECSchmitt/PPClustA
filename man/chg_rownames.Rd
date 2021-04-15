@@ -12,7 +12,7 @@ chg_rownames(matrix, newnames)
 \item{newnames}{a character vector of length n}
 }
 \value{
-
+the given matrix with changed rownames
 }
 \description{
 Function takes a vector containing names and a matrix and exchanges

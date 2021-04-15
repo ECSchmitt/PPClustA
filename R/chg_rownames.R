@@ -8,7 +8,7 @@
 #' @param matrix any matrix of dimension n*m
 #' @param newnames a character vector of length n
 #'
-#' @return
+#' @return the given matrix with changed rownames
 #' @export
 #'
 #' @examples
