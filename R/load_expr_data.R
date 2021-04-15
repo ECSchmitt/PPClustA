@@ -12,7 +12,6 @@
 #' @examples
 load_expr_data <- function(){
   library(golubEsets)
-  library(tidyverse)
 
   #importing Golub Data into GlobalEnv
   data("Golub_Train")
