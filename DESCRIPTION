@@ -1,6 +1,6 @@
 Package: PPClustA
 Type: Package
-Title: Shiny APP to visualise gene expression data from the Golub et al data
+Title: Shiny APP to visualise gene expression measured by Golub et al
 Version: 0.1.0
 Author: Eric Schmitt <ericcheschmitt@gmail.com>
 Maintainer: Eric Schmitt <ericcheschmitt@gmail.com>
