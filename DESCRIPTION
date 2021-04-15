@@ -6,7 +6,7 @@ Author: Eric Schmitt <ericcheschmitt@gmail.com>
 Maintainer: Eric Schmitt <ericcheschmitt@gmail.com>
 Description: This package contains a shiny APP to explore and visualize Gene expression
     data of Acute Lymphatic Leukemia (ALL) and Acute Myeloid Leukemia (AML) patients from 
-    the Golub et al. dataset. To visualize the date Principal Component Analysis and 
+    the Golub et al. dataset. To visualize the data Principal Component Analysis and 
     Hierarchical Clustering methods are applied.
 License: CC BY-NC-SA
 Encoding: UTF-8
