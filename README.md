@@ -34,7 +34,7 @@ if(!requireNamespace("devtools", quietly = TRUE))
 devtools::install_github("ECSchmitt/PPClustA")
 ```
 
-## Introduction
+## Some Theory behind the package
 
 Looking at [expression
 data](https://en.wikipedia.org/wiki/Gene_expression_profiling) of many
@@ -70,13 +70,13 @@ random 6\*6 numerical matrix can be produced as follows
 matrix <- matrix(rnorm(36), nrow = 6)
 ```
 
-    #>            [,1]        [,2]       [,3]         [,4]       [,5]       [,6]
-    #> [1,] -0.8316770 -0.32777338  0.7895983  0.252647836  0.8519514 -0.6237336
-    #> [2,] -0.2608489 -0.97399357 -0.4872362 -0.150969246  0.7971430 -0.1867314
-    #> [3,]  2.4752612  1.52436404 -1.3972125 -0.213666986  1.3209266 -0.2560233
-    #> [4,]  1.9830862 -2.48082876  0.1827952  0.002833884 -0.2586679 -0.5761536
-    #> [5,]  2.4970150 -0.18868647  1.3523666  1.338565436 -2.2276366  1.2692404
-    #> [6,] -1.0020344  0.05276695  0.7229029 -0.330745530  0.4171497  0.7753319
+    #>            [,1]       [,2]        [,3]        [,4]       [,5]       [,6]
+    #> [1,]  0.2495581 -0.2195152 -0.02347888 -1.14825925  0.4381384  0.7427548
+    #> [2,] -0.3763518 -1.7988968 -0.40007168 -0.05523367  1.1726737 -0.8992808
+    #> [3,]  0.5820911 -1.0235236 -0.56503246  1.00924978 -2.0784868  0.5907842
+    #> [4,]  0.6657550 -0.1863052 -1.61718801 -0.87891449  1.6645129  0.2974034
+    #> [5,]  0.4611757  1.2510181 -0.45074213  0.58990042 -0.8090523 -0.2568607
+    #> [6,]  1.3482114 -1.3377372 -0.83921443 -0.90615738 -0.3235185  2.0363126
 
 To obtain a distance between the matrix columns (in case of a matrix
 input) or the vector members (in case of a vector input) one has to
@@ -95,11 +95,11 @@ distance_matrix <- dist(matrix, method = "euclidean")
 ```
 
     #>          1        2        3        4        5
-    #> 2 1.652463                                    
-    #> 3 4.440832 3.852172                           
-    #> 4 3.771591 3.007454 4.628683                  
-    #> 5 5.065834 5.009443 5.274785 3.994050         
-    #> 6 1.632503 2.042134 4.543818 4.244560 4.766897
+    #> 2 2.731036                                    
+    #> 3 3.472986 3.933255                           
+    #> 4 2.118752 2.742302 4.413190                  
+    #> 5 2.822361 3.842153 2.776156 3.471527         
+    #> 6 2.331289 3.867816 3.098241 3.061634 3.920711
 
 ### Hierarchical Clustering
 
@@ -173,7 +173,43 @@ components (PC). These (PC) are then plotted into a two dimensional
 space. Usually, the two PC covering the largest variances are plotted as
 they are likely to represent the most important features.
 
-<img src="man/figures/README-pressure-1.png" width="100%" />
+``` r
+# prducing a 100*100 matrix with random values
+matrix <- matrix(rnorm(1000), nrow = 100)
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub!
+#calculating a distance matrix
+distance_matrix <- dist(matrix, method = "euclidean")
+
+#calculating PCA
+pca <- prcomp(distacne_matrix)
+
+#plotting pca
+plot(pca$x)
+```
+
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" /> You
+might now be disappointed by the sample image above as it doesn’t show
+fancy patterns. Since we use a randomly distributed matrix in our
+example, the distances between column vectors are likely to be quite
+similar and therefor the PCA may not contain interesting patterns. To
+investigate whether that is true, one can plot the principal components
+as a histogram to find out whether their contained variance is is
+similar. Such a plot can is part of a PCA object produced by prcomp()
+and can be plotted as follows:
+
+``` r
+# prducing a 100*100 matrix with random values
+matrix <- matrix(rnorm(1000), nrow = 100)
+
+#calculating a distance matrix
+distance_matrix <- dist(matrix, method = "euclidean")
+
+#calculating PCA
+pca <- prcomp(distance_matrix)
+
+#plotting pc histogram
+plot(pca)
+```
+
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+\#\#Variables in Shiny and their impact on visualisation

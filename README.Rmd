@@ -39,7 +39,7 @@ if(!requireNamespace("devtools", quietly = TRUE))
 devtools::install_github("ECSchmitt/PPClustA")
 ```
 
-## Introduction
+## Some Theory behind the package
 Looking at [expression data](https://en.wikipedia.org/wiki/Gene_expression_profiling) of many genes across many individuals we are confronted with a vast amount of information. Such data is multidimensional and therefore needs to be simplified to become comprehensible to us without losing important information. In case of the Golub data the authors were interested in finding and distinguishing new cancer sub-types. But how can we use expression data to define cancer sub-types?
 
 ### Measuring Distances
@@ -62,6 +62,7 @@ matrix
 
 To obtain a distance between the matrix columns (in case of a matrix input) or the vector members (in case of
 a vector input) one has to apply R's dist() method.  It can be called with different distance measures  like "euclidean", "manhattan","maximum" and others (use ?dist() to obtain a full list of available measurements). An example for how a distance matrix is calculated from a 6*6 matrix filled with random values is depicted below.
+
 
 ``` r
 #producing a 6*6 matrix with random values
@@ -107,14 +108,46 @@ hc <- hclust(distance_matrix, method = "single")
 plot(hc, xlab = "")
 ```
 
-
-
 ### Principal Component Analysis
 A gene expression matrix provides a multidimensional space across numerous features. It is not trivial presenting such data in a way that we can easily comprehend it as we are only familiar with 2 dimensional plotting. [Principal Component Analysis](https://www.huber.embl.de/msmb/Chap-Multivariate.html) is a way to reduce the dimension and plot the reduced data into 2 dimensional space. To achieve this, observations are projected onto vectors producing lines with respect to keeping the distances between points and line low while covering as much variance as possible. This procedure generates linear combinations of observation vectors called principal components (PC). These (PC) are then plotted into a two dimensional space. Usually, the two PC covering the largest variances are plotted as they are likely to represent the most important features.
+```r
+# prducing a 100*100 matrix with random values
+matrix <- matrix(rnorm(1000), nrow = 100)
 
+#calculating a distance matrix
+distance_matrix <- dist(matrix, method = "euclidean")
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+#calculating PCA
+pca <- prcomp(distacne_matrix)
+
+#plotting pca
+plot(pca$x)
+
 ```
+```{r, echo = FALSE}
+matrix <- matrix(rnorm(1000), nrow = 100)
+distance_matrix <- dist(matrix, method = "euclidean")
+pca <- prcomp(distance_matrix)
+plot(pca$x)
+```
+You might now be disappointed by the sample image above as it doesn't show fancy patterns. Since we use a randomly distributed matrix in our example, the distances between column vectors are likely to be quite similar and therefor the PCA may not contain interesting patterns. To investigate whether that is true, one can plot the principal components as a histogram to find out whether their contained variance is is similar. Such a plot can is part of a PCA object produced by prcomp() and can be plotted as follows:
+```r
+# prducing a 100*100 matrix with random values
+matrix <- matrix(rnorm(1000), nrow = 100)
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
+#calculating a distance matrix
+distance_matrix <- dist(matrix, method = "euclidean")
+
+#calculating PCA
+pca <- prcomp(distance_matrix)
+
+#plotting pc histogram
+plot(pca)
+```
+```{r echo = FALSE}
+matrix <- matrix(rnorm(1000), nrow = 100)
+distance_matrix <- dist(matrix, method = "euclidean")
+pca <- prcomp(distance_matrix)
+plot(pca)
+```
+##Variables in Shiny and their impact on visualisation
