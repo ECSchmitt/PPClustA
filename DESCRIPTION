@@ -14,3 +14,10 @@ LazyData: true
 URL: https://github.com/ECSchmitt/PPClustA
 BugReports: https://github.com/ECSchmitt/PPClustA/issues
 RoxygenNote: 7.1.1
+Imports: 
+    golubEsets,
+    ggfortify,
+    cluster,
+    shiny
+Depends: 
+    tidyverse
