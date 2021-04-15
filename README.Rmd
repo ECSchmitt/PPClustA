@@ -31,12 +31,19 @@ The PPClustA package contains a shiny APP to explore and visualize Gene expressi
 ## Installation
 
 You can install the current version of PPClustA from [GitHub](https://github.com/ECSchmitt/PPClustA) using [devtools](https://cran.r-project.org/web/packages/devtools/index.html) install_github() function:
-
 ``` r
 if(!requireNamespace("devtools", quietly = TRUE))
   install.packages("devtools")
   
 devtools::install_github("ECSchmitt/PPClustA")
+```
+
+## Running the App
+To start the shiny app load the PPClustA library and call the PPClustA::runapp() function
+```r
+library("PPClustA")
+
+PPClustA::runapp()
 ```
 
 ## Some Theory behind the package
@@ -62,8 +69,6 @@ matrix
 
 To obtain a distance between the matrix columns (in case of a matrix input) or the vector members (in case of
 a vector input) one has to apply R's dist() method.  It can be called with different distance measures  like "euclidean", "manhattan","maximum" and others (use ?dist() to obtain a full list of available measurements). An example for how a distance matrix is calculated from a 6*6 matrix filled with random values is depicted below.
-
-
 ``` r
 #producing a 6*6 matrix with random values
 matrix <- matrix(rnorm(36), nrow = 6)
