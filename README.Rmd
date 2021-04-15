@@ -150,4 +150,5 @@ distance_matrix <- dist(matrix, method = "euclidean")
 pca <- prcomp(distance_matrix)
 plot(pca)
 ```
-##Variables in Shiny and their impact on visualisation
+
+## Variables in Shiny and their impact on visualisation
