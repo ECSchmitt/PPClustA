@@ -15,9 +15,11 @@ URL: https://github.com/ECSchmitt/PPClustA
 BugReports: https://github.com/ECSchmitt/PPClustA/issues
 RoxygenNote: 7.1.1
 Imports: 
-    golubEsets,
-    ggfortify,
     cluster,
-    shiny
-Depends: 
-    tidyverse
+    ggfortify,
+    ggplot2,
+    golubEsets,
+    shiny,
+    tibble
+    
+
