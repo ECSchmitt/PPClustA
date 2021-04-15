@@ -1,3 +1,15 @@
+#' Creates gene expression matrix and gene list from the Golub data
+#'
+#' Calling this function will load the 'golubEsets' and 'tidyverse' libraries.
+#' Furthermore, the Golub_Train matrix with gene espression data will be loaded and transposed.
+#' After transposing it, zeros will be replaced by ones and the expression values are normalised
+#' by applying log2. Afterwards, rownames of the expression matrix wel be changed from patient IDs
+#' to the corresponding cancertypes
+#'
+#' @return loads expression data and a vector with gene names into GlobalEnv
+#' @export
+#'
+#' @examples
 fetch_data <- function(){
   library(golubEsets)
   library(tidyverse)
