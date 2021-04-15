@@ -16,5 +16,4 @@ fetch_data <- function(){
   genes <- expr_Matrix %>%
     apply(2,var) %>%
     sort(decreasing = TRUE)
-
   }
