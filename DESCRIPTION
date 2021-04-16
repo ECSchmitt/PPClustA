@@ -8,7 +8,7 @@ Description: This package contains a shiny APP to explore and visualize Gene exp
     data of Acute Lymphatic Leukemia (ALL) and Acute Myeloid Leukemia (AML) patients from 
     the Golub et al. dataset. To visualize the data Principal Component Analysis and 
     Hierarchical Clustering methods are applied.
-License: CC BY-NC-SA
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/ECSchmitt/PPClustA
