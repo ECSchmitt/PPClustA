@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The PPClustA package contains a shiny APP to explore and visualize Gene expression data of Acute Lymphatic Leukemia (ALL) and Acute Myeloid Leukemia (AML) patients from Golub et al. applying Principal Component Analysis and Hierarchical Clustering methods.
+The PPClustA package contains a shiny APP to explore and visualize Gene expression data of Acute Lymphatic Leukemia (ALL) and Acute Myeloid Leukemia (AML) patients from Golub et al. applying Principal Component Analysis and Hierarchical Clustering methods.  
 
 ## Required Packages
 * [cluster](https://cran.r-project.org/package=cluster)
