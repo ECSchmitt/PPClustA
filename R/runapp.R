@@ -82,9 +82,6 @@ runapp <- function(){
               label = h5("2nd Prinicipal Component to display"),
               selected = 2,
               choices = c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15")
-            ),
-            downloadButton(
-              outputId = "pcaplot"
             )
           ),
           mainPanel(
@@ -113,7 +110,7 @@ runapp <- function(){
     #Handling download of hierarchical cluster plot
     output$hclustplot <- downloadHandler(
       filename = function(){
-        paste(paste("hclust",input$hcdist, input$hcclust,sep = "_"),"pdf", sep = ".")
+        paste("hclust","pdf", sep = ".")
       },
       content = function(file){
         pdf(file)
@@ -147,6 +144,8 @@ runapp <- function(){
 
       autoplot(x, data = df, colour = "cancertype") + theme_light()
     })
+
+
   }
 
 # ShinyAPP starter --------------------------------------------------------
