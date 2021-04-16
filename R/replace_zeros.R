@@ -10,6 +10,10 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' matrix %>%
+#'   replace_zeros(x)
+#' }
 replace_zeros <- function(matrix, x){
   matrix[matrix <= 0] <- x
   return(matrix)
