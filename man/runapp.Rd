@@ -12,3 +12,8 @@ starts a shiny App to be displayed inside the webbrowser
 \description{
 ShinyAPP displaing hierarchical clustering and PCA of gene expression data
 }
+\examples{
+\dontrun{
+runapp()
+}
+}

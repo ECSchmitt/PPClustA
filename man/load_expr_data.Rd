@@ -16,3 +16,11 @@ After transposing it, zeros will be replaced by ones and the expression values a
 by applying log2. Afterwards, rownames of the expression matrix are changed from patient IDs
 to the corresponding cancertypes.
 }
+\examples{
+\dontrun{
+library("Golub_Train")
+data("Golub_Train")
+expression_Matrix <- Golub_Train
+return(expression_Matrix)
+}
+}

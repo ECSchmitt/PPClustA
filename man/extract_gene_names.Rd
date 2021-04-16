@@ -16,3 +16,9 @@ vector containing colnames
 This function orders the columns of a matrix by variance starting with the highest within column variance
 left to the lowest within column variance on the right.
 }
+\examples{
+\dontrun{
+colnames <- matrix \%>\%
+  extract_gene_names()
+}
+}

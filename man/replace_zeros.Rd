@@ -18,3 +18,9 @@ replace_zeros(matrix, x)
 Replaces zeros in a numerical matrix with a given numerical value x. Was written to enable
 the matrix operator to be used within a dplyr pipe
 }
+\examples{
+\dontrun{
+matrix \%>\%
+  replace_zeros(x)
+}
+}
