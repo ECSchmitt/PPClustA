@@ -49,7 +49,9 @@ runapp <- function(){
               inputId = "hcclust",
               label = h5("Clustering Method"),
               choices = c("single", "complete","average", "median", "centroid")
-            )
+            ),
+            downloadButton(
+              outputId = "hclustplot")
           ),
           mainPanel(
             plotOutput("hcluster")
@@ -80,6 +82,9 @@ runapp <- function(){
               label = h5("2nd Prinicipal Component to display"),
               selected = 2,
               choices = c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15")
+            ),
+            downloadButton(
+              outputId = "pcaplot"
             )
           ),
           mainPanel(
@@ -104,6 +109,21 @@ runapp <- function(){
         hclust(method = input$hcclust) %>%
         plot()
     })
+
+    #Handling download of hierarchical cluster plot
+    output$hclustplot <- downloadHandler(
+      filename = function(){
+        paste(paste("hclust",input$hcdist, input$hcclust,sep = "_"),"pdf", sep = ".")
+      },
+      content = function(file){
+        pdf(file)
+        expression[,names(genes)[1:input$hcgnr]] %>%
+          dist(method = input$hcdist) %>%
+          hclust(method = input$hcclust) %>%
+          plot()
+        dev.off()
+      }
+    )
 
     #Plotting basic PCA
     output$basicpca <- renderPlot({
