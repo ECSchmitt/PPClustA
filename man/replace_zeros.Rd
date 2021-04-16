@@ -16,5 +16,5 @@ replace_zeros(matrix, x)
 }
 \description{
 Replaces zeros in a numerical matrix with a given numerical value x. Was written to enable
-the matrix operator to be used within a diplyr pipe
+the matrix operator to be used within a dplyr pipe
 }
