@@ -22,7 +22,7 @@ The PPClustA package contains a shiny APP to explore and visualize Gene expressi
 
 ## Required Packages
 * [cluster](https://cran.r-project.org/package=cluster)
-* [diplyr](https://cran.r-project.org/web/packages/dplyr/index.html)
+* [dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)
 * [ggfortify](https://cran.r-project.org/package=ggfortify)
 * [GolubEsets](https://doi.org/doi:10.18129/B9.bioc.golubEsets)
 * [Shiny](https://shiny.rstudio.com/)
