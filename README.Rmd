@@ -176,6 +176,7 @@ Within the "Hierarchical Clustering" tab you can find four interactive elements.
 ![](man/figures/hcvariables.png)
 The "Principal Component" tab contains a slider in the top left as well. Similar to the one mentioned before, the amount of genes included in computing a PCA can be selected with it. Within the plot area two plots are displayed this time. The left one plots two principal components chosen by the user an reacts to the amount of genes slider as well as to the two selection boxes below. Choose any of the 15 principal components, plot them against each other and see what happens! To add a more colorful plot the right graph shows the same PCA but will always represent the first two principal components. To compensate for this lack in activity, the data points within the graph are colored according to the cancer-type of the underlying patient and the covered variance is plotted behind the axis labels.
 ![](man/figures/pcvariables.png)
+
 ## Functions of other Packages used within PPClustA
 
 base

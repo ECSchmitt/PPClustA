@@ -70,13 +70,13 @@ random 6\*6 numerical matrix can be produced as follows
 matrix <- matrix(rnorm(36), nrow = 6)
 ```
 
-    #>            [,1]        [,2]       [,3]       [,4]        [,5]        [,6]
-    #> [1,] -1.6858700  0.02002372 -1.8418908  0.3505620  0.09653293  0.29773899
-    #> [2,] -0.3699596  0.38126401  2.1807528 -2.1416279 -0.74941603  0.24783083
-    #> [3,] -1.5807367  0.82641638 -2.1291174 -0.4369107 -0.07072455 -0.02078181
-    #> [4,] -0.5757894  2.51702363 -1.7532831  0.3904929 -0.42256927 -0.34339428
-    #> [5,]  0.5659827 -0.75028683 -0.8262724  1.7301778  0.44272678  0.32271207
-    #> [6,]  0.3067436  0.58285449 -1.2621084  1.0912458  0.19876982 -0.38036886
+    #>            [,1]       [,2]        [,3]       [,4]        [,5]       [,6]
+    #> [1,]  0.7832886  0.2522557  0.58886114  0.1603796  0.20384382 -1.7056035
+    #> [2,] -0.3248377  0.8179260  0.04088522 -0.8749737 -0.04557519  0.8923035
+    #> [3,] -0.8247051  1.0343174  0.56643076 -1.4916530  0.46835511  0.4820068
+    #> [4,]  0.4374623 -0.5303346 -0.54719352 -1.2863952 -0.54646419 -1.0948589
+    #> [5,] -1.2038200  1.4826844  0.66492424  0.3729660  1.00186380 -0.9449751
+    #> [6,] -0.8106236  0.4957657 -0.10238469  0.9704715  0.40635933 -0.6120505
 
 To obtain a distance between the matrix columns (in case of a matrix
 input) or the vector members (in case of a vector input) one has to
@@ -95,11 +95,11 @@ distance_matrix <- dist(matrix, method = "euclidean")
 ```
 
     #>          1        2        3        4        5
-    #> 2 4.997290                                    
-    #> 3 1.222033 4.866000                           
-    #> 4 2.856090 5.191193 2.218512                  
-    #> 5 2.952882 5.255120 3.724204 3.978128         
-    #> 6 2.375359 4.908872 2.628840 2.374787 1.731039
+    #> 2 3.119534                                    
+    #> 3 3.283685 1.177137                           
+    #> 4 2.247619 2.667155 2.973190                  
+    #> 5 2.594017 2.762972 2.480358 3.659036         
+    #> 6 2.229528 2.496657 2.828500 3.007138 1.593691
 
 ### Hierarchical Clustering
 
@@ -262,8 +262,9 @@ the same PCA but will always represent the first two principal
 components. To compensate for this lack in activity, the data points
 within the graph are colored according to the cancer-type of the
 underlying patient and the covered variance is plotted behind the axis
-labels. ![](man/figures/pcvariables.png) \#\# Functions of other
-Packages used within PPClustA
+labels. ![](man/figures/pcvariables.png)
+
+## Functions of other Packages used within PPClustA
 
 base
 
