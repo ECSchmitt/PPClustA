@@ -10,6 +10,12 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' library("Golub_Train")
+#' data("Golub_Train")
+#' expression_Matrix <- Golub_Train
+#' return(expression_Matrix)
+#' }
 load_expr_data <- function(){
   library(golubEsets)
 
