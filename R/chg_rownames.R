@@ -12,6 +12,10 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' matrix %>%
+#'   chg_rownames(newnames)
+#' }
 chg_rownames <- function(matrix, newnames){
   rownames(matrix) <- newnames
   return(matrix)
