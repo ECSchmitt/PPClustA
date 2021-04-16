@@ -4,6 +4,9 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' runapp()
+#' }
 runapp <- function(){
 
 # Loading required libraries ----------------------------------------------
