@@ -9,6 +9,10 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' colnames <- matrix %>%
+#'   extract_gene_names()
+#' }
 extract_gene_names <- function(matrix){
 
   #Sortes columns by column variance starting with highest var left to lowest war right and
