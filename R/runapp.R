@@ -6,7 +6,7 @@
 #' @examples
 runapp <- function(){
 
-  # Loading required libraries ----------------------------------------------
+# Loading required libraries ----------------------------------------------
   library(shiny)
   library(ggfortify)
   library(cluster)
@@ -14,7 +14,7 @@ runapp <- function(){
   library(tibble)
   library(ggplot2)
 
-  # Data Import and processing -------------------------------------------------------------
+# Data Import and processing -------------------------------------------------------------
   expression <- load_expr_data()
   genes <- extract_gene_names(expression)
 
@@ -22,160 +22,114 @@ runapp <- function(){
   df_express <- as_tibble(expression) %>%
     add_column("cancertype" = Golub_Train$ALL.AML)
 
-  # Shiny UI ----------------------------------------------------------------
+# ShinyUI -----------------------------------------------------------------
   ui <- fluidPage(
 
-    titlePanel("Visualisation of the Golub et al. Gene expression Set"),
-    sidebarLayout(
-      sidebarPanel(
+    #Tabset Panel to hold 2 Tabs
+    tabsetPanel(
 
-        sliderInput(
-          inputId = "gnr",
-          label = "How Many genes would you like to include?",
-          value = 15,
-          min = 1,
-          max = 500
-        ),
-
-        p("Select the parameters to calculate a hierarchical clustered Dendrogram"),
-        selectInput(
-          inputId = "distm",
-          label = "Distance Measure ",
-          choices = c("euclidean" , "maximum" , "manhattan" , "canberra" , "binary")
-        ),
-        selectInput(
-          inputId = "cmeth",
-          label = "Clustering Method",
-          choices = c("single", "complete","average", "median", "centroid")
-        ),
-
-        p("Select the two Principal Components you'd like to display"),
-        sliderInput(
-          inputId = "one",
-          label = "First PC",
-          value = 1,
-          min = 1,
-          max = 15
-        ),
-        sliderInput(
-          inputId = "two",
-          label = "Second PC",
-          value = 2,
-          min = 1,
-          max = 15
-        ),
-
-        sliderInput(
-          inputId = "clustNr",
-          label = "Number of Clusters to find",
-          value = 1,
-          min = 1,
-          max = 5
-        )
-
-      ),
-      mainPanel(
-        tabsetPanel(
-          tabPanel(
-            title = "Hierachical Cluster Dendrogram",
+      #1st Tab
+      tabPanel(
+        title = "Hierachical Cluster Dendrogram", fluid = TRUE,
+        sidebarLayout(
+          sidebarPanel(
+            sliderInput(
+              inputId = "hcgnr",
+              label = h5("Nr of genes to include"),
+              value = 15,
+              min = 1,
+              max = 500
+            ),
+            selectInput(
+              inputId = "hcdist",
+              label = h5("Distance measure"),
+              choices = c("euclidean" , "maximum" , "manhattan" , "canberra" , "binary")
+            ),
+            selectInput(
+              inputId = "hcclust",
+              label = h5("Clustering Method"),
+              choices = c("single", "complete","average", "median", "centroid")
+            )
+          ),
+          mainPanel(
             plotOutput("hcluster")
+          )
+        )
+      ),
+
+      # 2nd Tab
+      tabPanel(
+        title = "Principal Component Analysis",
+        fluid = TRUE,
+        sidebarLayout(
+          sidebarPanel(
+            sliderInput(
+              inputId = "pcagnr",
+              label = h5("Nr of genes to include"),
+              value = 15,
+              min = 1,
+              max = 500
+            ),
+            selectInput(
+              inputId = "pc1",
+              label = h5("1st Prinicipal Component to display"),
+              choices = c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15")
+            ),
+            selectInput(
+              inputId = "pc2",
+              label = h5("2nd Prinicipal Component to display"),
+              selected = 2,
+              choices = c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15")
+            )
           ),
-          tabPanel(
-            title = "Heatmap",
-            plotOutput("hmap")
-          ),
-          tabPanel(
-            title = "Principal Component Analysis",
+          mainPanel(
             fluidRow(
               splitLayout(cellWidths = c("50%","50%"),
                           plotOutput(outputId = "basicpca"),
                           plotOutput(outputId = "pca")
               )
-            ),
-            fluidRow(
-              splitLayout(cellWidths = c("50%","50%"),
-                          plotOutput(outputId = "variances"),
-                          plotOutput(outputId = "clusterrange")
-              )
             )
           )
-        ),
-        downloadButton(
-          outputId = "VisSum",
-          label = "VisualSummary"
         )
-      ),
-      position = "left",
-      fluid = FALSE
+      )
     )
   )
-
-
-
-  # Shiny Server logic ------------------------------------------------------
+# Shiny Server logic ------------------------------------------------------
   server <- function(input, output) {
 
-    #building hierarchical cluster plot
-    output$hcluster <-  renderPlot({
-
-      expression[,names(genes)[1:input$gnr]] %>%
-        dist(method = input$distm) %>%
-        hclust(method = input$cmeth) %>%
+    #Plotting hierarchical Clustering
+    output$hcluster <- renderPlot({
+      expression[,names(genes)[1:input$hcgnr]] %>%
+        dist(method = input$hcdist) %>%
+        hclust(method = input$hcclust) %>%
         plot()
-
     })
 
-    #building heatmap
-    output$hmap <- renderPlot({
-      expression[,names(genes)[1:input$gnr]] %>%
-        heatmap()
-    })
-
-    #basic PCA blot with choseable principal components and gene numbers
+    #Plotting basic PCA
     output$basicpca <- renderPlot({
 
-      x <- expression[,names(genes)[1:input$gnr]] %>%
+      x <- expression[,names(genes)[1:input$pcagnr]] %>%
         prcomp(scale. = TRUE)
 
-      plot(x$x[,input$one],
-           x$x[,input$two],
-           xlab = paste("PC", input$one),
-           ylab = paste("PC", input$two))
+      plot(x$x[,as.numeric(input$pc1)],
+           x$x[,as.numeric(input$pc2)],
+           xlab = paste("PC", input$pc1),
+           ylab = paste("PC", input$pc2))
     })
 
-    #PCA plot colourised displaying loadings & cancertypes fetched from the df_expression dataframe
+    #Plotting PCA
     output$pca <- renderPlot({
-      x <- expression[,names(genes)[1:input$gnr]] %>%
-        prcomp(scale. = TRUE)
+      df <- as_tibble(expression) %>%
+        add_column("cancertype" = Golub_Train$ALL.AML)
 
-      autoplot(x, data = df_express,
-               colour = "cancertype",
-               loadings = TRUE,
-               loadings.colour = "lightgrey",
-      ) +
-        theme_bw()
+      x <- expression[,names(genes)[1:input$pcagnr]] %>%
+        prcomp()
+
+      autoplot(x, data = df, colour = "cancertype") + theme_light()
     })
-
-    #Plots framed clusters reactive to numbers of clusters given
-    output$clusterrange <- renderPlot({
-      x <- expression[,names(genes)[1:input$gnr]] %>%
-        prcomp(scale. = TRUE)
-
-      autoplot(pam(x$x,input$clustNr), frame = TRUE, frame.type = "norm")+
-        theme_bw()
-    })
-
-    #Ploting Variances covered by each PC
-    output$variances <- renderPlot({
-      p <- expression[,names(genes)[1:input$gnr]] %>%
-        prcomp(scale. = TRUE)
-
-      plot(p, type = "lines", main = "Variance per PC")
-    })
-
   }
 
-  # ShinyAPP starter --------------------------------------------------------
+# ShinyAPP starter --------------------------------------------------------
   shinyApp(ui = ui, server = server)
 
 }
