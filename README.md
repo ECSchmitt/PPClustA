@@ -34,18 +34,7 @@ if(!requireNamespace("devtools", quietly = TRUE))
 devtools::install_github("ECSchmitt/PPClustA")
 ```
 
-## Running the App
-
-To start the shiny app load the PPClustA library and call the
-PPClustA::runapp() function
-
-``` r
-library("PPClustA")
-
-PPClustA::runapp()
-```
-
-## Some Theory behind the package
+## Some Theory behind the Package
 
 Looking at [expression
 data](https://en.wikipedia.org/wiki/Gene_expression_profiling) of many
@@ -81,13 +70,13 @@ random 6\*6 numerical matrix can be produced as follows
 matrix <- matrix(rnorm(36), nrow = 6)
 ```
 
-    #>            [,1]        [,2]        [,3]       [,4]       [,5]       [,6]
-    #> [1,] -0.6750213 -1.65170261  0.03966725 -0.7292314 -0.3242121 -1.1815699
-    #> [2,]  1.2543156 -0.50365692 -1.36132305  0.3188853  0.3044789 -1.5612162
-    #> [3,]  0.1561174  0.09026473  0.49199725 -0.5982965 -1.2288888  2.0666600
-    #> [4,]  1.4063085  0.30885151 -0.65144699  2.1906545  0.6112767 -1.1233001
-    #> [5,]  0.3932834  0.08586148  0.34016548 -0.7213169 -0.1731040  1.2493399
-    #> [6,]  0.4635649 -1.31685930  0.68494162  0.7816332  1.0598688 -0.5283661
+    #>            [,1]       [,2]        [,3]       [,4]       [,5]       [,6]
+    #> [1,]  0.2002093 -1.8429099 -0.03798537 -0.2919818  0.5508570  1.2771151
+    #> [2,]  0.4256045 -1.5705979 -0.39928420  0.2231061 -0.2953992  2.5584870
+    #> [3,] -0.7006193  0.7684140 -0.38902708  0.9919670 -2.5106750  0.9921104
+    #> [4,] -1.2408019 -3.1316856 -0.12149503  0.2325101  0.7273651  0.3661015
+    #> [5,] -0.3363887 -0.2517239  1.08031840 -0.2630235  1.3006307  0.3040100
+    #> [6,]  1.1553003 -0.5286421  1.51941427 -0.2536279  1.3262744 -1.2321638
 
 To obtain a distance between the matrix columns (in case of a matrix
 input) or the vector members (in case of a vector input) one has to
@@ -106,11 +95,11 @@ distance_matrix <- dist(matrix, method = "euclidean")
 ```
 
     #>          1        2        3        4        5
-    #> 2 2.939567                                    
-    #> 3 3.913621 4.620336                           
-    #> 4 4.249425 2.230832 4.925294                  
-    #> 5 3.191069 3.632259 1.370090 4.096766         
-    #> 6 2.539674 2.706532 3.998566 2.803241 3.005121
+    #> 2 1.696724                                    
+    #> 3 4.342403 3.832961                           
+    #> 4 2.209213 3.338227 5.198818                  
+    #> 5 2.362276 3.517895 4.461710 3.336846         
+    #> 6 3.458933 4.746121 5.476315 4.284764 2.203452
 
 ### Hierarchical Clustering
 
@@ -198,9 +187,10 @@ pca <- prcomp(distance_matrix)
 plot(pca$x)
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" /> You
-might now be disappointed by the sample image above as it doesn’t show
-fancy patterns. Since we use a randomly distributed matrix in our
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+
+You might now be disappointed by the sample image above as it doesn’t
+show fancy patterns. Since we use a randomly distributed matrix in our
 example, the distances between column vectors are likely to be quite
 similar and therefor the PCA may not contain interesting patterns. To
 investigate whether that is true, one can plot the principal components
@@ -224,4 +214,101 @@ plot(pca)
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
 
-## Variables in Shiny and their impact on visualisation
+## Starting the Shiny Application and using Reactive Components
+
+This Package was built to enable users to explore and visualize
+hierarchical clustering methods and principal component analysis on well
+know benchmark data. For this purpose a shiny app was included in it
+which can be started after loading the package.
+
+### Running the App
+
+To start the shiny app, load the PPClustA library and call the
+PPClustA::runapp() function
+
+``` r
+library(PPClustA)
+PPClustA::runapp()
+```
+
+### Reactive components
+
+Calling the runapp function starts a shiny dashboard comprised of two
+tabs which can be selected by clicking on them with the mouse cursor.
+The active tab will appear grey while the inactive one will stay blue
+until clicked. For better orientation see figure below.
+
+![](man/figures/appstructure.png) Within the “Hierarchical Clustering”
+tab you can find four interactive elements. On the top left side there
+is a slider which determines the number of genes to be included in
+calculating the distance matrix between patients. It can be adjusted to
+any integer between 1 to 500. Below that slider there are the “Distance
+Measure” and the “Clustering Method” box in which one can select methods
+to be applied during distance matrix calculation and hierarchical
+clustering computation. Be invited to play around with them and observe
+how the plot on the right side changes. Finally, you can find a download
+button bottom left which allows you to export the produced plot as .pdf
+file. For a detailed overview or in case you struggle with finding one
+of the mention options please have a look at the figure below.
+![](man/figures/hcvariables.png) The “Principal Component” tab contains
+a slider in the top left as well. Similar to the one mentioned before,
+the amount of genes included in computing a PCA can be selected with it.
+Within the plot area two plots are displayed this time. The left one
+plots two principal components chosen by the user an reacts to the
+amount of genes slider as well as to the two selection boxes below.
+Choose any of the 15 principal components, plot them against each other
+and see what happens! To add a more colorful plot the right graph shows
+the same PCA but will always represent the first two principal
+components. To compensate for this lack in activity, the data points
+within the graph are colored according to the cancer-type of the
+underlying patient and the covered variance is plotted behind the axis
+labels. ![](man/figures/pcvariables.png) \#\# Functions of other
+Packages used within PPClustA
+
+base
+
+-   [t()](https://www.rdocumentation.org/packages/base/versions/3.6.1/topics/t)
+-   [log2()](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/log)
+-   [apply()](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/apply)
+-   [sort()](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/sort)
+-   [paste()](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/paste)
+
+dplyr
+
+-   imported to use the pipe-operator (
+    [%&gt;%](https://www.datacamp.com/community/tutorials/pipe-r-tutorial)
+    ).
+
+graphics
+
+-   [plot()](https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/plot)
+
+ggfortify
+
+-   [autoplot](https://www.rdocumentation.org/packages/ggplot2/versions/3.3.3/topics/autoplot)
+
+Shiny
+
+-   [titlePanel()](https://www.rdocumentation.org/packages/shiny/versions/1.6.0/topics/titlePanel)
+-   [mainPanel()](https://www.rdocumentation.org/packages/shiny/versions/1.2.0/topics/mainPanel)
+-   [sidebarPanel()](https://shiny.rstudio.com/reference/shiny/0.11/sidebarPanel.html)
+-   [sidebarLayout()](https://www.rdocumentation.org/packages/shiny/versions/1.6.0/topics/sidebarLayout)
+-   [tabsetPanel()](https://www.rdocumentation.org/packages/shiny/versions/1.6.0/topics/tabsetPanel)
+-   [tabPanel()](https://shiny.rstudio.com/reference/shiny/latest/tabPanel.html)
+-   [selectInput()](https://www.rdocumentation.org/packages/shiny/versions/1.6.0/topics/selectInput)
+-   [sliderInput()](https://www.rdocumentation.org/packages/shinybootstrap2/versions/0.2.1/topics/sliderInput)
+-   [fluidRow()](https://shiny.rstudio.com/articles/layout-guide.html)
+-   [renderPlot()](https://www.rdocumentation.org/packages/shiny/versions/1.6.0/topics/renderPlot)
+-   [downloadHandler()](https://www.rdocumentation.org/packages/shiny/versions/1.6.0/topics/downloadHandler)
+-   [downloadButton()](https://www.rdocumentation.org/packages/shiny/versions/1.6.0/topics/downloadButton)
+
+Stats
+
+-   [dist()](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/dist)
+-   [hclust()](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/hclust)
+-   [prcomp()](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/prcomp)
+
+Tibble
+
+-   [rownames()](https://www.rdocumentation.org/packages/tibble/versions/3.1.0/topics/rownames)
+-   [add\_column()](https://www.rdocumentation.org/packages/tibble/versions/3.1.0/topics/add_column)
